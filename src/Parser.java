@@ -212,7 +212,7 @@ public class Parser
                 decl_list();
                 return null;
         }
-        throw new Exception("error in program");
+        throw new Exception("error in program at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public List<String> decl_list() throws Exception
     {
@@ -224,7 +224,7 @@ public class Parser
                 decl_list_();
                 return null;
         }
-        throw new Exception("error in decl_list");
+        throw new Exception("error in decl_list at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public List<String> decl_list_() throws Exception
     {
@@ -238,7 +238,7 @@ public class Parser
             case ENDMARKER:
                 return null;
         }
-        throw new Exception("error in decl_list_");
+        throw new Exception("error in decl_list_ at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public List<String> fun_decl() throws Exception
     {
@@ -260,7 +260,7 @@ public class Parser
                 Match(END);
                 return null;
         }
-        throw new Exception("errpr in fun_decl");
+        throw new Exception("errpr in fun_decl at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String params() throws Exception
     {
@@ -274,7 +274,7 @@ public class Parser
             case RPAREN:
                 return null;
         }
-        throw new Exception("error in params");
+        throw new Exception("error in params at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String param_list() throws Exception
     {
@@ -286,7 +286,7 @@ public class Parser
                 param_list_();
                 return null;
         }
-        throw new Exception("error in param_list");
+        throw new Exception("error in param_list at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String param_list_() throws Exception
     {
@@ -302,7 +302,7 @@ public class Parser
             case RPAREN:
                 return null;
         }
-        throw new Exception("error in param_list_");
+        throw new Exception("error in param_list_ at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String param() throws Exception
     {
@@ -315,7 +315,7 @@ public class Parser
                 type_spec();
                 return null;
         }
-        throw new Exception("error in param");
+        throw new Exception("error in param at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String type_spec() throws Exception
     {
@@ -328,7 +328,7 @@ public class Parser
                 type_spec_();
                 return null;
         }
-        throw new Exception("error in type_spec");
+        throw new Exception("error in type_spec at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String type_spec_() throws Exception
     {
@@ -345,7 +345,7 @@ public class Parser
             case COMMA:
                 return null;
         }
-        throw new Exception("error in type_spec_");
+        throw new Exception("Incorrect type specification at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String prim_type() throws Exception
     {
@@ -360,7 +360,7 @@ public class Parser
                 Match(BOOL);
                 return null;
         }
-        throw new Exception("error in prim_type");
+        throw new Exception("error in prim_type at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String local_decls() throws Exception
     {
@@ -378,7 +378,7 @@ public class Parser
                 local_decls_();
                 return null;
         }
-        throw new Exception("error in local_decls");
+        throw new Exception("Incorrect declaration of a local variable at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String local_decls_() throws Exception
     {
@@ -400,7 +400,7 @@ public class Parser
                 return null;
 
         }
-        throw new Exception("error in local_decls_");
+        throw new Exception("error in local_decls_ at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String local_decl() throws Exception
     {
@@ -415,7 +415,7 @@ public class Parser
                 Match(SEMI);
                 return null;
         }
-        throw new Exception("error in local_decl");
+        throw new Exception("error in local_decl at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String stmt_list() throws Exception
     {
@@ -433,7 +433,7 @@ public class Parser
                 stmt_list_();
                 return null;
         }
-        throw new Exception("error in stmt_list");
+        throw new Exception("error in stmt_list at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String stmt_list_() throws Exception
     {
@@ -485,7 +485,7 @@ public class Parser
                 expr_stmt();
                 return null;
         }
-        throw new Exception("error in stmt");
+        throw new Exception("error in stmt at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String expr_stmt() throws Exception
     {
@@ -499,7 +499,7 @@ public class Parser
                 Match(SEMI);
                 return null;
         }
-        throw new Exception("error in expr_stmt");
+        throw new Exception("error in expr_stmt at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String print_stmt() throws Exception
     {
@@ -512,7 +512,7 @@ public class Parser
                 Match(SEMI);
                 return null;
         }
-        throw new Exception("error in print_stmt");
+        throw new Exception("error in print_stmt at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String return_stmt() throws Exception
     {
@@ -525,7 +525,7 @@ public class Parser
                 Match(SEMI);
                 return null;
         }
-        throw new Exception("error in return_stmt");
+        throw new Exception("error in return_stmt at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String if_stmt() throws Exception
     {
@@ -542,7 +542,7 @@ public class Parser
                 Match(END);
                 return null;
         }
-        throw new Exception("error in if_stmt");
+        throw new Exception("error in if_stmt at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String while_stmt() throws Exception
     {
@@ -557,7 +557,7 @@ public class Parser
                 Match(END);
                 return null;
         }
-        throw new Exception("error in while_stmt");
+        throw new Exception("error in while_stmt at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public List<String> compound_stmt() throws Exception
     {
@@ -571,7 +571,7 @@ public class Parser
                 Match(END);
                 return null;
         }
-        throw new Exception("error in compound_stmt");
+        throw new Exception("error in compound_stmt at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String args() throws Exception
     {
@@ -589,7 +589,7 @@ public class Parser
             case RPAREN:
                 return null;
         }
-        throw new Exception("error in args");
+        throw new Exception("error in args at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String arg_list() throws Exception
     {
@@ -605,7 +605,7 @@ public class Parser
                 arg_list_();
                 return null;
         }
-        throw new Exception("error in arg_list");
+        throw new Exception("error in arg_list at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String arg_list_() throws Exception
     {
@@ -621,7 +621,7 @@ public class Parser
             case RPAREN:
                 return null;
         }
-        throw new Exception("error in arg_list_");
+        throw new Exception("Incorrect argument format at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String expr() throws Exception
     {
@@ -637,7 +637,7 @@ public class Parser
                 expr_();
                 return null;
         }
-        throw new Exception("error in expr");
+        throw new Exception("Incorrect expression at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String expr_() throws Exception
     {
@@ -664,7 +664,7 @@ public class Parser
             case COMMA:
                 return null;
         }
-        throw new Exception("error in expr_");
+        throw new Exception("error in expr_ at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String term() throws Exception
     {
@@ -680,7 +680,7 @@ public class Parser
                 term_();
                 return null;
         }
-        throw new Exception("error in term");
+        throw new Exception("Incorrect expression at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String term_() throws Exception
     {
@@ -703,7 +703,7 @@ public class Parser
             case COMMA:
                 return null;
         }
-        throw new Exception("error in term_");
+        throw new Exception("Incorrect expression at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String factor() throws Exception
     {
@@ -737,7 +737,7 @@ public class Parser
                 factor_();
                 return null;
         }
-        throw new Exception("error in factor");
+        throw new Exception("Incorrect expression at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String factor_() throws Exception
     {
@@ -772,6 +772,6 @@ public class Parser
             case COMMA:
                 return null;
         }
-        throw new Exception("error in factor_");
+        throw new Exception("Incorrect expression at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
 }
