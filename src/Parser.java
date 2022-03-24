@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -102,7 +103,6 @@ public class Parser
 
     // **************************************************************************************
     // From here down, implement all the functions for each non-terminal from the parse table
-    // Right now I'm not sure if those functions given are correct
     // **************************************************************************************
 
 //    template:
@@ -125,163 +125,424 @@ public class Parser
         switch(_token.type)
         {
             // program -> decl_list
-            case INT:
+            case FUNC:
             case ENDMARKER:
                 decl_list();
-                Match(ENDMARKER);
                 return null;
         }
-        throw new Exception();
+        throw new Exception("error in program");
     }
     public List<String> decl_list() throws Exception
     {
         switch(_token.type)
         {
             // decl_list -> decl_list'
-            case INT:
+            case FUNC:
             case ENDMARKER:
                 decl_list_();
                 return null;
         }
-        throw new Exception();
+        throw new Exception("error in decl_list");
     }
     public List<String> decl_list_() throws Exception
     {
         switch(_token.type)
         {
             // decl_list'	-> fun_decl decl_list'
-            case INT:
-                fun_decl()  ;
+            case FUNC:
+                fun_decl();
                 decl_list_();
                 return null;
             case ENDMARKER:
                 return null;
         }
-        throw new Exception();
+        throw new Exception("error in decl_list_");
     }
     public List<String> fun_decl() throws Exception
     {
         switch(_token.type)
         {
-            // fun_decl	-> type_spec IDENT "(" params ")" compound_stmt
-            case INT:
-                type_spec()    ;
-                Match(IDENT)   ;
-                Match(LPAREN)  ;
-                params()       ;
-                Match(RPAREN)  ;
-                Match(BEGIN)   ;
-                compound_stmt();
-                Match(END)     ;
+            // fun_decl -> FUNC IDENT TYPEOF LPAREN params RPAREN FUNCRET prim_type BEGIN local_decls stmt_list END
+            case FUNC:
+                Match(FUNC);
+                Match(IDENT);
+                Match(TYPEOF);
+                Match(LPAREN);
+                params();
+                Match(RPAREN);
+                Match(FUNCRET);
+                prim_type();
+                Match(BEGIN);
+                local_decls();
+                stmt_list();
+                Match(END);
                 return null;
         }
-        throw new Exception();
+        throw new Exception("errpr in fun_decl");
     }
     public String params() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            // params -> param_list
+            case IDENT:
+                param_list()    ;
+                return null;
+            // params -> ϵ
+            case RPAREN:
+                return null;
+        }
+        throw new Exception("error in params");
+    }
+    public String param_list() throws Exception
+    {
+        switch (_token.type)
+        {
+            // param_list -> param param_list'
+            case IDENT:
+                param();
+                param_list_();
+                return null;
+        }
+        throw new Exception("error in param_list");
+    }
+    public String param_list_() throws Exception
+    {
+        switch (_token.type)
+        {
+            // param_list' -> COMMA param param_list'
+            case COMMA:
+                Match(COMMA);
+                param();
+                param_list_();
+                return null;
+            // param_list' -> ϵ
+            case RPAREN:
+                return null;
+        }
+        throw new Exception("error in param_list_");
+    }
+    public String param() throws Exception
+    {
+        switch (_token.type)
+        {
+            // param -> IDENT TYPEOF type_spec
+            case IDENT:
+                Match(IDENT);
+                Match(TYPEOF);
+                type_spec();
+                return null;
+        }
+        throw new Exception("error in param");
     }
     public String type_spec() throws Exception
     {
         switch(_token.type)
         {
-            // type_spec	-> "int"
+            // type_spec -> prim_type type_spec'
             case INT:
-                Match(INT);
+            case BOOL:
+                prim_type();
+                type_spec_();
                 return null;
         }
-        throw new Exception();
+        throw new Exception("error in type_spec");
     }
     public String type_spec_() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            // type_spec' -> LBRACKET RBRACKET
+            case LBRACKET:
+                Match(LBRACKET);
+                Match(RBRACKET);
+                return null;
+            // type_spec' -> ϵ
+            case RPAREN:
+            case SEMI:
+            case COMMA:
+                return null;
+        }
+        throw new Exception("error in type_spec_");
     }
     public String prim_type() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            // prim_type -> INT
+            case INT:
+                Match(INT);
+                return null;
+            // prim_type  -> BOOL
+            case BOOL:
+                Match(BOOL);
+                return null;
+        }
+        throw new Exception("error in prim_type");
     }
     public String local_decls() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            // local_decls -> local_decls'
+            case RETURN:
+            case VAR:
+            case IF:
+            case BEGIN:
+            case END:
+            case WHILE:
+            case PRINT:
+            case IDENT:
+                local_decls_();
+                return null;
+        }
+        throw new Exception("error in local_decls");
     }
     public String local_decls_() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            // local_decls' -> local_decl local_decls'
+            case VAR:
+                local_decl();
+                local_decls_();
+                return null;
+            // local_decls' -> ϵ
+            case RETURN:
+            case IF:
+            case BEGIN:
+            case END:
+            case WHILE:
+            case PRINT:
+            case IDENT:
+                return null;
+
+        }
+        throw new Exception("error in local_decls_");
     }
     public String local_decl() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            // local_decl -> VAR IDENT TYPEOF type_spec SEMI
+            case VAR:
+                Match(VAR);
+                Match(IDENT);
+                Match(TYPEOF);
+                type_spec();
+                Match(SEMI);
+                return null;
+        }
+        throw new Exception("error in local_decl");
     }
     public String stmt_list() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            // stmt_list -> stmt_list'
+            case RETURN:
+            case IF:
+            case ELSE:
+            case BEGIN:
+            case END:
+            case WHILE:
+            case PRINT:
+            case IDENT:
+                stmt_list_();
+                return null;
+        }
+        throw new Exception("error in stmt_list");
     }
     public String stmt_list_() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            // stmt_list' -> stmt stmt_list'
+            case RETURN:
+            case IF:
+            case BEGIN:
+            case WHILE:
+            case PRINT:
+            case IDENT:
+                stmt();
+                stmt_list_();
+                return null;
+            // stmt_list' -> ϵ
+            case ELSE:
+            case END:
+                return null;
+        }
+        throw new Exception("error in stmt_list_");
     }
     public String stmt() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            // stmt -> return_stmt
+            case RETURN:
+                return_stmt();
+                return null;
+            // stmt -> if_stmt
+            case IF:
+                if_stmt();
+                return null;
+            // stmt -> compound_stmt
+            case BEGIN:
+                compound_stmt();
+                return null;
+            // stmt -> while_stmt
+            case WHILE:
+                while_stmt();
+                return null;
+            // stmt -> print_stmt
+            case PRINT:
+                print_stmt();
+                return null;
+            // stmt -> expr_stmt
+            case IDENT:
+                expr_stmt();
+                return null;
+        }
+        throw new Exception("error in stmt");
     }
     public String expr_stmt() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            // expr_stmt -> IDENT ASSIGN expr SEMI
+            case IDENT:
+                Match(IDENT);
+                Match(ASSIGN);
+                expr();
+                Match(SEMI);
+                return null;
+        }
+        throw new Exception("error in expr_stmt");
     }
     public String print_stmt() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            //
+
+        }
+        throw new Exception();
     }
     public String return_stmt() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            //
+
+        }
+        throw new Exception();
     }
     public String if_stmt() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            //
+
+        }
+        throw new Exception();
     }
     public String while_stmt() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            //
+
+        }
+        throw new Exception();
     }
     public List<String> compound_stmt() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            //
+
+        }
+        throw new Exception();
     }
     public String args() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            //
+
+        }
+        throw new Exception();
     }
     public String arg_list() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            //
+
+        }
+        throw new Exception();
     }
     public String arg_list_() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            //
+
+        }
+        throw new Exception();
     }
     public String expr() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            //
+
+        }
+        throw new Exception();
     }
     public String expr_() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            //
+
+        }
+        throw new Exception();
     }
     public String term() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            //
+
+        }
+        throw new Exception();
     }
     public String term_() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            //
+
+        }
+        throw new Exception();
     }
     public String factor() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            //
+
+        }
+        throw new Exception();
     }
     public String factor_() throws Exception
     {
-        throw new Exception("not implemented");
+        switch (_token.type)
+        {
+            //
+
+        }
+        throw new Exception();
     }
 }
