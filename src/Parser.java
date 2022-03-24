@@ -423,126 +423,273 @@ public class Parser
     {
         switch (_token.type)
         {
-            //
-
+            // print_stmt -> PRINT expr SEMI
+            case PRINT:
+                Match(PRINT);
+                expr();
+                Match(SEMI);
+                return null;
         }
-        throw new Exception();
+        throw new Exception("error in print_stmt");
     }
     public String return_stmt() throws Exception
     {
         switch (_token.type)
         {
-            //
-
+            // return_stmt -> RETURN expr SEMI
+            case RETURN:
+                Match(RETURN);
+                expr();
+                Match(SEMI);
+                return null;
         }
-        throw new Exception();
+        throw new Exception("error in return_stmt");
     }
     public String if_stmt() throws Exception
     {
         switch (_token.type)
         {
-            //
-
+            // if_stmt -> IF expr THEN stmt_list ELSE stmt_list END
+            case IF:
+                Match(IF);
+                expr();
+                Match(THEN);
+                stmt_list();
+                Match(ELSE);
+                stmt_list();
+                Match(END);
+                return null;
         }
-        throw new Exception();
+        throw new Exception("error in if_stmt");
     }
     public String while_stmt() throws Exception
     {
         switch (_token.type)
         {
-            //
-
+            // while_stmt -> WHILE expr BEGIN stmt_list END
+            case WHILE:
+                Match(WHILE);
+                expr();
+                Match(BEGIN);
+                stmt_list();
+                Match(END);
+                return null;
         }
-        throw new Exception();
+        throw new Exception("error in while_stmt");
     }
     public List<String> compound_stmt() throws Exception
     {
         switch (_token.type)
         {
-            //
-
+            // compound_stmt -> BEGIN local_decls stmt_list END
+            case BEGIN:
+                Match(BEGIN);
+                local_decls();
+                stmt_list();
+                Match(END);
+                return null;
         }
-        throw new Exception();
+        throw new Exception("error in compound_stmt");
     }
     public String args() throws Exception
     {
         switch (_token.type)
         {
-            //
-
+            // args -> arg_list
+            case LPAREN:
+            case NEW:
+            case BOOL_LIT:
+            case INT_LIT:
+            case IDENT:
+                arg_list();
+                return null;
+            //  args -> ϵ
+            case RPAREN:
+                return null;
         }
-        throw new Exception();
+        throw new Exception("error in args");
     }
     public String arg_list() throws Exception
     {
         switch (_token.type)
         {
-            //
-
+            // arg_list -> expr arg_list'
+            case LPAREN:
+            case NEW:
+            case BOOL_LIT:
+            case INT_LIT:
+            case IDENT:
+                expr();
+                arg_list_();
+                return null;
         }
-        throw new Exception();
+        throw new Exception("error in arg_list");
     }
     public String arg_list_() throws Exception
     {
         switch (_token.type)
         {
-            //
-
+            // arg_list' -> COMMA expr arg_list'
+            case COMMA:
+                Match(COMMA);
+                expr();
+                arg_list_();
+                return null;
+            // arg_list' -> ϵ
+            case RPAREN:
+                return null;
         }
-        throw new Exception();
+        throw new Exception("error in arg_list_");
     }
     public String expr() throws Exception
     {
         switch (_token.type)
         {
-            //
-
+            // expr -> term expr'
+            case LPAREN:
+            case NEW:
+            case BOOL_LIT:
+            case INT_LIT:
+            case IDENT:
+                term();
+                expr_();
+                return null;
         }
-        throw new Exception();
+        throw new Exception("error in expr");
     }
     public String expr_() throws Exception
     {
         switch (_token.type)
         {
-            //
-
+            // expr' -> RELOP term expr'
+            case RELOP:
+                Match(RELOP);
+                term();
+                expr_();
+                return null;
+            //  expr' -> EXPROP term expr'
+            case EXPROP:
+                Match(EXPROP);
+                term();
+                expr_();
+                return null;
+            // expr' -> ϵ
+            case BEGIN:
+            case THEN:
+            case RPAREN:
+            case RBRACKET:
+            case SEMI:
+            case COMMA:
+                return null;
         }
-        throw new Exception();
+        throw new Exception("error in expr_");
     }
     public String term() throws Exception
     {
         switch (_token.type)
         {
-            //
-
+            // term -> factor term'
+            case LPAREN:
+            case NEW:
+            case BOOL_LIT:
+            case INT_LIT:
+            case IDENT:
+                factor();
+                term_();
+                return null;
         }
-        throw new Exception();
+        throw new Exception("error in term");
     }
     public String term_() throws Exception
     {
         switch (_token.type)
         {
-            //
-
+            // term' -> TERMOP factor term'
+            case TERMOP:
+                Match(TERMOP);
+                factor();
+                term_();
+                return null;
+            // term' -> ϵ
+            case THEN:
+            case BEGIN:
+            case RPAREN:
+            case RBRACKET:
+            case RELOP:
+            case EXPROP:
+            case SEMI:
+            case COMMA:
+                return null;
         }
-        throw new Exception();
+        throw new Exception("error in term_");
     }
     public String factor() throws Exception
     {
         switch (_token.type)
         {
-            //
-
+            // factor -> LPAREN expr RPAREN
+            case LPAREN:
+                Match(LPAREN);
+                expr();
+                Match(RPAREN);
+                return null;
+            // factor -> NEW prim_type LBRACKET expr RBRACKET
+            case NEW:
+                Match(NEW);
+                prim_type();
+                Match(LBRACKET);
+                expr();
+                Match(RBRACKET);
+                return null;
+            // factor -> BOOL_LIT
+            case BOOL_LIT:
+                Match(BOOL_LIT);
+                return null;
+            // factor -> INT_LIT
+            case INT_LIT:
+                Match(INT_LIT);
+                return null;
+            // factor -> IDENT factor'
+            case IDENT:
+                Match(IDENT);
+                factor_();
+                return null;
         }
-        throw new Exception();
+        throw new Exception("error in factor");
     }
     public String factor_() throws Exception
     {
         switch (_token.type)
         {
-            //
-
+            // factor' -> LPAREN args RPAREN
+            case LPAREN:
+                Match(LPAREN);
+                args();
+                Match(RPAREN);
+                return null;
+            // factor' -> LBRACKET expr RBRACKET
+            case LBRACKET:
+                Match(LBRACKET);
+                expr();
+                Match(RBRACKET);
+                return null;
+            // factor' -> DOT SIZE
+            case DOT:
+                Match(DOT);
+                Match(SIZE);
+                return null;
+            // factor' -> ϵ
+            case THEN:
+            case BEGIN:
+            case RPAREN:
+            case RBRACKET:
+            case RELOP:
+            case EXPROP:
+            case TERMOP:
+            case SEMI:
+            case COMMA:
+                return null;
         }
-        throw new Exception();
+        throw new Exception("error in factor_");
     }
 }
