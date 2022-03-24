@@ -71,10 +71,107 @@ public class Parser
     {
         boolean match = (token_type == _token.type);
         String lexeme = "";
+        String errorMsg = "";
 
-        if(!match)
-            throw new Exception();
-
+        if(!match) {
+//            System.out.println(token_type);
+            switch (token_type) {
+                case 10:
+                    errorMsg = "\"func\"";
+                    break;
+                case 11:
+                    errorMsg = "\"return\"";
+                    break;
+                case 12:
+                    errorMsg = "\"var\"";
+                    break;
+                case 13:
+                    errorMsg = "\"if\"";
+                    break;
+                case 14:
+                    errorMsg = "\"then\"";
+                    break;
+                case 15:
+                    errorMsg = "\"else\"";
+                    break;
+                case 16:
+                    errorMsg = "\"begin\"";
+                    break;
+                case 17:
+                    errorMsg = "\"end\"";
+                    break;
+                case 18:
+                    errorMsg = "\"while\"";
+                    break;
+                case 19:
+                    errorMsg = "\"(\"";
+                    break;
+                case 20:
+                    errorMsg = "\")\"";
+                    break;
+                case 21:
+                    errorMsg = "\"[\"";
+                    break;
+                case 22:
+                    errorMsg = "\"]\"";
+                    break;
+                case 23:
+                    errorMsg = "\"void\"";
+                    break;
+                case 24:
+                    errorMsg = "\"int\"";
+                    break;
+                case 25:
+                    errorMsg = "\"bool\"";
+                    break;
+                case 26:
+                    errorMsg = "\"new\"";
+                    break;
+                case 27:
+                    errorMsg = "\"size\"";
+                    break;
+                case 28:
+                    errorMsg = "\"print\"";
+                    break;
+                case 29:
+                    errorMsg = "\"<-\"";
+                    break;
+                case 30:
+                    errorMsg = "\"->\"";
+                    break;
+                case 31:
+                    errorMsg = "\"::\"";
+                    break;
+                case 32:
+                    errorMsg = "\"<\", \">\",\"<=\", \"=\" or \"!=\"";
+                    break;
+                case 33:
+                    errorMsg = "\"+\", \"-\" or \"or\"";
+                    break;
+                case 34:
+                    errorMsg = "\"*\", \"/\" or \"and\"";
+                    break;
+                case 35:
+                    errorMsg = "\";\"";
+                    break;
+                case 36:
+                    errorMsg = "\",\"";
+                    break;
+                case 37:
+                    errorMsg = "\".\"";
+                    break;
+                case 38:
+                    errorMsg = "a boolean value";
+                    break;
+                case 39:
+                    errorMsg = "an integer";
+                    break;
+                case 40:
+                    errorMsg = "an identifier";
+                    break;
+            }
+            throw new Exception(errorMsg + " is expected instead of \"" + _token.attr.obj + "\" at " + (Lexer.yyline+1) + ":" + (Lexer.yycolumn+1) + ".");
+        }
         if(_token.type != ENDMARKER)
             Advance();
 
@@ -90,8 +187,8 @@ public class Parser
         }
         catch(Exception e)
         {
-            System.out.println("Error: there exists syntax error(s).");
-            //System.out.println(e.getMessage());
+            System.out.println("Error: There is syntax error(s).");
+            System.out.println(e.getMessage());
         }
         return 0;
     }
@@ -104,21 +201,6 @@ public class Parser
     // **************************************************************************************
     // From here down, implement all the functions for each non-terminal from the parse table
     // **************************************************************************************
-
-//    template:
-//    public List<String> program() throws Exception
-//    {
-//        switch(_token.type)
-//        {
-//            // program -> decl_list
-//            case INT:
-//            case ENDMARKER:
-//                decl_list();
-//                Match(ENDMARKER);
-//                return null;
-//        }
-//        throw new Exception();
-//    }
 
     public List<String> program() throws Exception
     {
@@ -372,7 +454,7 @@ public class Parser
             case END:
                 return null;
         }
-        throw new Exception("error in stmt_list_");
+        throw new Exception("Incorrect statement at " + (Lexer.yyline+1) +":" + (Lexer.yycolumn+1) + ".");
     }
     public String stmt() throws Exception
     {

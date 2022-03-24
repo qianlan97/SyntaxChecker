@@ -295,7 +295,7 @@ class Lexer {
   private int zzEndRead;
 
   /** number of newlines encountered up to the start of the matched text */
-  private int yyline;
+  public static int yyline;
 
   /** the number of characters up to the start of the matched text */
   private int yychar;
@@ -304,7 +304,7 @@ class Lexer {
    * the number of characters from the last newline up to the start of the 
    * matched text
    */
-  private int yycolumn;
+  public static int yycolumn;
 
   /** 
    * zzAtBOL == true <=> the scanner is currently at the beginning of a line
