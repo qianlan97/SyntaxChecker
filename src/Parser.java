@@ -6,31 +6,37 @@ public class Parser
     public static final int ENDMARKER   =  0;
     public static final int LEXERROR    =  1;
 
-    public static final int BOOL        = 10;
-    public static final int INT         = 11;
-    public static final int NEW         = 12;
-    public static final int PTR         = 13;
-    public static final int DO          = 14;
-    public static final int WHILE       = 15;
-    public static final int IF          = 16;
-    public static final int THEN        = 17;
-    public static final int ELSE        = 18;
-    public static final int ENDIF       = 19;
-    public static final int BEGIN       = 20;
-    public static final int END         = 21;
-    public static final int LPAREN      = 22;
-    public static final int RPAREN      = 23;
-    public static final int LBRACKET    = 24;
-    public static final int RBRACKET    = 25;
-    public static final int ASSIGN      = 26;
-    public static final int RELOP       = 27;
-    public static final int EXPROP      = 28;
-    public static final int TERMOP      = 29;
-    public static final int SEMI        = 30;
-    public static final int COMMA       = 31;
-    public static final int BOOL_LIT    = 32;
-    public static final int INT_LIT     = 33;
-    public static final int IDENT       = 34;
+    public static final int FUNC        = 10;
+    public static final int RETURN      = 11;
+    public static final int VAR         = 12;
+    public static final int IF          = 13;
+    public static final int THEN        = 14;
+    public static final int ELSE        = 15;
+    public static final int BEGIN       = 16;
+    public static final int END         = 17;
+    public static final int WHILE       = 18;
+    public static final int LPAREN      = 19;
+    public static final int RPAREN      = 20;
+    public static final int LBRACKET    = 21;
+    public static final int RBRACKET    = 22;
+    public static final int VOID        = 23;
+    public static final int INT         = 24;
+    public static final int BOOL        = 25;
+    public static final int NEW         = 26;
+    public static final int SIZE        = 27;
+    public static final int PRINT       = 28;
+    public static final int ASSIGN      = 29;
+    public static final int FUNCRET     = 30;
+    public static final int TYPEOF      = 31;
+    public static final int RELOP       = 32;
+    public static final int EXPROP      = 33;
+    public static final int TERMOP      = 34;
+    public static final int SEMI        = 35;
+    public static final int COMMA       = 36;
+    public static final int DOT         = 37;
+    public static final int BOOL_LIT    = 38;
+    public static final int INT_LIT     = 39;
+    public static final int IDENT       = 40;
 
     public class Token
     {
@@ -65,7 +71,7 @@ public class Parser
         boolean match = (token_type == _token.type);
         String lexeme = "";
 
-        if(match == false)
+        if(!match)
             throw new Exception();
 
         if(_token.type != ENDMARKER)

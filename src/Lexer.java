@@ -41,11 +41,13 @@ class Lexer {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\10\0\1\24\1\4\1\3\1\7\1\7\1\6\22\0\1\4\7\0"+
-    "\1\17\1\20\1\10\1\22\1\0\1\0\1\0\1\5\12\1\1\0"+
-    "\1\23\1\0\1\21\2\0\1\14\4\2\1\2\25\2\4\0\1\2"+
-    "\1\0\10\2\1\11\4\2\1\12\5\2\1\13\6\2\1\15\1\0"+
-    "\1\16\7\0\1\7\u1fa2\0\1\7\1\7\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
+    "\10\0\1\53\1\6\1\5\1\11\1\11\1\10\22\0\1\6\1\13"+
+    "\6\0\1\37\1\40\1\50\1\4\1\52\1\14\1\2\1\7\12\1"+
+    "\1\46\1\51\1\12\1\47\1\15\2\0\4\3\1\3\25\3\1\41"+
+    "\1\0\1\42\1\0\1\3\1\0\1\26\1\33\1\21\1\35\1\23"+
+    "\1\16\1\34\1\30\1\27\2\3\1\31\1\3\1\20\1\43\1\45"+
+    "\1\3\1\22\1\32\1\24\1\17\1\25\1\36\2\3\1\44\12\0"+
+    "\1\11\u1fa2\0\1\11\1\11\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
 
   /** 
    * Translates characters to character classes
@@ -58,12 +60,17 @@ class Lexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\1\3\2\4\1\1\1\5\1\3"+
-    "\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15"+
-    "\1\16\1\4\1\0\1\3\1\0\1\17\1\4";
+    "\1\0\1\1\1\2\1\3\1\4\1\5\2\6\1\7"+
+    "\1\10\1\1\1\5\1\10\13\4\1\11\1\12\1\13"+
+    "\1\14\2\4\1\1\1\10\1\7\1\15\1\16\1\17"+
+    "\1\6\1\0\1\20\1\21\13\4\1\22\5\4\1\5"+
+    "\1\4\1\23\1\0\2\4\1\24\1\4\1\25\3\4"+
+    "\1\26\1\4\1\7\1\27\5\4\1\0\1\30\1\4"+
+    "\1\31\1\32\1\33\1\34\1\35\1\4\1\36\2\4"+
+    "\1\0\1\4\1\37\1\40\1\41\1\0\1\42\1\6";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[24];
+    int [] result = new int[98];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -88,12 +95,22 @@ class Lexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\25\0\52\0\77\0\25\0\124\0\151\0\25"+
-    "\0\176\0\25\0\25\0\25\0\25\0\25\0\25\0\25"+
-    "\0\25\0\25\0\223\0\250\0\275\0\322\0\77\0\250";
+    "\0\0\0\54\0\130\0\54\0\204\0\54\0\54\0\260"+
+    "\0\334\0\u0108\0\u0134\0\u0160\0\u0134\0\u018c\0\u01b8\0\u01e4"+
+    "\0\u0210\0\u023c\0\u0268\0\u0294\0\u02c0\0\u02ec\0\u0318\0\u0344"+
+    "\0\54\0\54\0\54\0\54\0\u0370\0\u039c\0\u03c8\0\54"+
+    "\0\54\0\54\0\54\0\54\0\u03f4\0\u0420\0\54\0\54"+
+    "\0\u044c\0\u0478\0\u04a4\0\u04d0\0\u04fc\0\u0528\0\u0554\0\u0580"+
+    "\0\u05ac\0\u05d8\0\u0604\0\204\0\u0630\0\u065c\0\u0688\0\u06b4"+
+    "\0\u06e0\0\204\0\u070c\0\54\0\u0738\0\u0764\0\u0790\0\204"+
+    "\0\u07bc\0\204\0\u07e8\0\u0814\0\u0840\0\204\0\u086c\0\204"+
+    "\0\204\0\u0898\0\u08c4\0\u08f0\0\u091c\0\u0948\0\u0974\0\204"+
+    "\0\u09a0\0\204\0\204\0\204\0\204\0\204\0\u09cc\0\204"+
+    "\0\u09f8\0\u0a24\0\u0a50\0\u0a7c\0\204\0\204\0\204\0\u0aa8"+
+    "\0\204\0\u0974";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[24];
+    int [] result = new int[98];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -116,17 +133,81 @@ class Lexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\1\3\1\4\1\5\1\6\1\7\1\6\1\2"+
-    "\1\10\1\11\2\4\1\12\1\13\1\14\1\15\1\16"+
-    "\1\17\1\20\1\21\1\22\26\0\1\3\24\0\2\4"+
-    "\6\0\3\4\15\0\1\6\1\0\1\6\23\0\1\23"+
-    "\2\0\1\24\15\0\2\4\6\0\1\4\1\25\1\4"+
-    "\11\0\3\23\1\0\2\23\2\0\15\23\6\24\2\0"+
-    "\1\26\14\24\1\0\2\4\6\0\2\4\1\27\11\0"+
-    "\5\24\1\30\2\0\1\26\14\24";
+    "\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11"+
+    "\1\10\1\2\1\12\1\13\1\14\1\15\1\16\1\5"+
+    "\1\17\1\5\1\20\1\21\1\22\1\23\1\24\1\25"+
+    "\2\5\1\26\1\27\2\5\1\30\1\31\1\32\1\33"+
+    "\1\34\1\35\1\5\1\36\1\37\1\40\1\41\1\42"+
+    "\1\43\1\44\55\0\1\3\53\0\1\5\1\0\1\5"+
+    "\12\0\21\5\4\0\3\5\14\0\1\10\1\0\1\10"+
+    "\52\0\1\45\57\0\1\46\1\47\32\0\1\40\53\0"+
+    "\1\40\21\0\1\50\37\0\1\5\1\0\1\5\12\0"+
+    "\1\5\1\51\6\5\1\52\10\5\4\0\3\5\7\0"+
+    "\1\5\1\0\1\5\12\0\5\5\1\53\13\5\4\0"+
+    "\3\5\7\0\1\5\1\0\1\5\12\0\5\5\1\54"+
+    "\13\5\4\0\3\5\7\0\1\5\1\0\1\5\12\0"+
+    "\2\5\1\55\10\5\1\56\5\5\4\0\3\5\7\0"+
+    "\1\5\1\0\1\5\12\0\4\5\1\57\5\5\1\60"+
+    "\6\5\4\0\3\5\7\0\1\5\1\0\1\5\12\0"+
+    "\10\5\1\61\10\5\4\0\1\62\2\5\7\0\1\5"+
+    "\1\0\1\5\12\0\2\5\1\63\16\5\4\0\3\5"+
+    "\7\0\1\5\1\0\1\5\12\0\1\64\1\5\1\65"+
+    "\16\5\4\0\3\5\7\0\1\5\1\0\1\5\12\0"+
+    "\11\5\1\66\7\5\4\0\3\5\7\0\1\5\1\0"+
+    "\1\5\12\0\5\5\1\67\13\5\4\0\1\70\2\5"+
+    "\7\0\1\5\1\0\1\5\12\0\12\5\1\71\6\5"+
+    "\4\0\3\5\7\0\1\5\1\0\1\5\12\0\4\5"+
+    "\1\72\14\5\4\0\3\5\7\0\1\5\1\0\1\5"+
+    "\12\0\4\5\1\73\14\5\4\0\3\5\54\0\1\74"+
+    "\5\0\5\45\1\0\2\45\2\0\42\45\14\0\1\75"+
+    "\40\0\1\5\1\0\1\5\12\0\2\5\1\76\16\5"+
+    "\4\0\3\5\7\0\1\5\1\0\1\5\12\0\13\5"+
+    "\1\77\5\5\4\0\3\5\7\0\1\5\1\0\1\5"+
+    "\12\0\20\5\1\100\4\0\3\5\7\0\1\5\1\0"+
+    "\1\5\12\0\6\5\1\101\12\5\4\0\3\5\7\0"+
+    "\1\5\1\0\1\5\12\0\17\5\1\102\1\5\4\0"+
+    "\3\5\7\0\1\5\1\0\1\5\12\0\14\5\1\103"+
+    "\4\5\4\0\3\5\7\0\1\5\1\0\1\5\12\0"+
+    "\1\5\1\104\17\5\4\0\3\5\7\0\1\5\1\0"+
+    "\1\5\12\0\5\5\1\105\13\5\4\0\3\5\7\0"+
+    "\1\5\1\0\1\5\12\0\4\5\1\106\14\5\4\0"+
+    "\3\5\7\0\1\5\1\0\1\5\12\0\11\5\1\107"+
+    "\7\5\4\0\3\5\7\0\1\5\1\0\1\5\12\0"+
+    "\17\5\1\110\1\5\4\0\3\5\7\0\1\5\1\0"+
+    "\1\5\12\0\6\5\1\111\12\5\4\0\3\5\7\0"+
+    "\1\5\1\0\1\5\12\0\21\5\4\0\1\5\1\112"+
+    "\1\5\7\0\1\5\1\0\1\5\12\0\16\5\1\113"+
+    "\2\5\4\0\3\5\7\0\1\5\1\0\1\5\12\0"+
+    "\21\5\4\0\1\114\2\5\7\0\1\5\1\0\1\5"+
+    "\12\0\11\5\1\115\7\5\4\0\3\5\7\0\1\5"+
+    "\1\0\1\5\12\0\11\5\1\116\7\5\4\0\3\5"+
+    "\22\0\1\117\40\0\1\5\1\0\1\5\12\0\3\5"+
+    "\1\120\15\5\4\0\3\5\7\0\1\5\1\0\1\5"+
+    "\12\0\14\5\1\104\4\5\4\0\3\5\7\0\1\5"+
+    "\1\0\1\5\12\0\1\5\1\121\17\5\4\0\3\5"+
+    "\7\0\1\5\1\0\1\5\12\0\5\5\1\122\13\5"+
+    "\4\0\3\5\7\0\1\5\1\0\1\5\12\0\5\5"+
+    "\1\123\13\5\4\0\3\5\7\0\1\5\1\0\1\5"+
+    "\12\0\2\5\1\124\16\5\4\0\3\5\7\0\1\5"+
+    "\1\0\1\5\12\0\17\5\1\125\1\5\4\0\3\5"+
+    "\7\0\1\5\1\0\1\5\12\0\5\5\1\126\13\5"+
+    "\4\0\3\5\7\0\1\5\1\0\1\5\12\0\11\5"+
+    "\1\127\7\5\4\0\3\5\7\0\1\5\1\0\1\5"+
+    "\12\0\13\5\1\130\5\5\4\0\3\5\7\0\1\5"+
+    "\1\0\1\5\12\0\13\5\1\131\5\5\4\0\3\5"+
+    "\7\0\1\5\1\0\1\5\12\0\2\5\1\132\16\5"+
+    "\4\0\3\5\6\0\14\117\1\133\37\117\1\0\1\5"+
+    "\1\0\1\5\12\0\4\5\1\134\14\5\4\0\3\5"+
+    "\7\0\1\5\1\0\1\5\12\0\2\5\1\135\16\5"+
+    "\4\0\3\5\7\0\1\5\1\0\1\5\12\0\5\5"+
+    "\1\136\13\5\4\0\3\5\7\0\1\5\1\0\1\5"+
+    "\12\0\6\5\1\137\12\5\4\0\3\5\6\0\14\117"+
+    "\1\140\37\117\1\0\1\5\1\0\1\5\12\0\2\5"+
+    "\1\141\16\5\4\0\3\5\6\0\14\117\1\140\1\142"+
+    "\36\117";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[231];
+    int [] result = new int[2772];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -164,11 +245,12 @@ class Lexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\2\1\1\11\2\1\1\11\1\1\11\11"+
-    "\1\1\1\0\1\1\1\0\2\1";
+    "\1\0\1\11\1\1\1\11\1\1\2\11\21\1\4\11"+
+    "\3\1\5\11\1\1\1\0\2\11\23\1\1\11\1\0"+
+    "\21\1\1\0\13\1\1\0\4\1\1\0\2\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[24];
+    int [] result = new int[98];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -277,7 +359,7 @@ class Lexer {
     char [] map = new char[0x110000];
     int i = 0;  /* index in packed string  */
     int j = 0;  /* index in unpacked array */
-    while (i < 126) {
+    while (i < 162) {
       int  count = packed.charAt(i++);
       char value = packed.charAt(i++);
       do map[j++] = value; while (--count > 0);
@@ -517,6 +599,62 @@ class Lexer {
     while (true) {
       zzMarkedPosL = zzMarkedPos;
 
+      boolean zzR = false;
+      int zzCh;
+      int zzCharCount;
+      for (zzCurrentPosL = zzStartRead  ;
+           zzCurrentPosL < zzMarkedPosL ;
+           zzCurrentPosL += zzCharCount ) {
+        zzCh = Character.codePointAt(zzBufferL, zzCurrentPosL, zzMarkedPosL);
+        zzCharCount = Character.charCount(zzCh);
+        switch (zzCh) {
+        case '\u000B':
+        case '\u000C':
+        case '\u0085':
+        case '\u2028':
+        case '\u2029':
+          yyline++;
+          yycolumn = 0;
+          zzR = false;
+          break;
+        case '\r':
+          yyline++;
+          yycolumn = 0;
+          zzR = true;
+          break;
+        case '\n':
+          if (zzR)
+            zzR = false;
+          else {
+            yyline++;
+            yycolumn = 0;
+          }
+          break;
+        default:
+          zzR = false;
+          yycolumn += zzCharCount;
+        }
+      }
+
+      if (zzR) {
+        // peek one character ahead if it is \n (if we have counted one line too much)
+        boolean zzPeek;
+        if (zzMarkedPosL < zzEndReadL)
+          zzPeek = zzBufferL[zzMarkedPosL] == '\n';
+        else if (zzAtEOF)
+          zzPeek = false;
+        else {
+          boolean eof = zzRefill();
+          zzEndReadL = zzEndRead;
+          zzMarkedPosL = zzMarkedPos;
+          zzBufferL = zzBuffer;
+          if (eof) 
+            zzPeek = false;
+          else 
+            zzPeek = zzBufferL[zzMarkedPosL] == '\n';
+        }
+        if (zzPeek) yyline--;
+      }
       zzAction = -1;
 
       zzCurrentPosL = zzCurrentPos = zzStartRead = zzMarkedPosL;
@@ -587,63 +725,139 @@ class Lexer {
           case 1: 
             { System.err.println("Error: unexpected character '"+yytext()+"'"); return -1;
             }
-          case 16: break;
+          case 35: break;
           case 2: 
-            { parser.yylval = new ParserVal((Object)yytext()); return Parser.INT_LIT;
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.INT_LIT  ;
             }
-          case 17: break;
+          case 36: break;
           case 3: 
-            { parser.yylval = new ParserVal((Object)yytext()); return Parser.IDENT  ;
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.DOT      ;
             }
-          case 18: break;
+          case 37: break;
           case 4: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.IDENT    ;
+            }
+          case 38: break;
+          case 5: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.EXPROP   ;
+            }
+          case 39: break;
+          case 6: 
             { /* skip */
             }
-          case 19: break;
-          case 5: 
-            { parser.yylval = new ParserVal((Object)yytext()); return Parser.TERMOP ;
-            }
-          case 20: break;
-          case 6: 
-            { parser.yylval = new ParserVal((Object)yytext()); return Parser.PTR    ;
-            }
-          case 21: break;
+          case 40: break;
           case 7: 
-            { parser.yylval = new ParserVal((Object)yytext()); return Parser.BEGIN  ;
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.TERMOP   ;
             }
-          case 22: break;
+          case 41: break;
           case 8: 
-            { parser.yylval = new ParserVal((Object)yytext()); return Parser.END    ;
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.RELOP    ;
             }
-          case 23: break;
+          case 42: break;
           case 9: 
-            { parser.yylval = new ParserVal((Object)yytext()); return Parser.LPAREN ;
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.LPAREN   ;
             }
-          case 24: break;
+          case 43: break;
           case 10: 
-            { parser.yylval = new ParserVal((Object)yytext()); return Parser.RPAREN ;
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.RPAREN   ;
             }
-          case 25: break;
+          case 44: break;
           case 11: 
-            { parser.yylval = new ParserVal((Object)yytext()); return Parser.ASSIGN ;
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.LBRACKET ;
             }
-          case 26: break;
+          case 45: break;
           case 12: 
-            { parser.yylval = new ParserVal((Object)yytext()); return Parser.EXPROP ;
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.RBRACKET ;
             }
-          case 27: break;
+          case 46: break;
           case 13: 
-            { parser.yylval = new ParserVal((Object)yytext()); return Parser.SEMI   ;
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.SEMI     ;
             }
-          case 28: break;
+          case 47: break;
           case 14: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.COMMA    ;
+            }
+          case 48: break;
+          case 15: 
             { System.err.println("Sorry, backspace doesn't work");
             }
-          case 29: break;
-          case 15: 
-            { parser.yylval = new ParserVal((Object)yytext()); return Parser.INT    ;
+          case 49: break;
+          case 16: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.ASSIGN   ;
             }
-          case 30: break;
+          case 50: break;
+          case 17: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.FUNCRET  ;
+            }
+          case 51: break;
+          case 18: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.IF       ;
+            }
+          case 52: break;
+          case 19: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.TYPEOF   ;
+            }
+          case 53: break;
+          case 20: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.NEW      ;
+            }
+          case 54: break;
+          case 21: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.END      ;
+            }
+          case 55: break;
+          case 22: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.VAR      ;
+            }
+          case 56: break;
+          case 23: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.INT      ;
+            }
+          case 57: break;
+          case 24: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.FUNC     ;
+            }
+          case 58: break;
+          case 25: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.ELSE     ;
+            }
+          case 59: break;
+          case 26: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.BOOL_LIT ;
+            }
+          case 60: break;
+          case 27: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.THEN     ;
+            }
+          case 61: break;
+          case 28: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.VOID     ;
+            }
+          case 62: break;
+          case 29: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.SIZE     ;
+            }
+          case 63: break;
+          case 30: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.BOOL     ;
+            }
+          case 64: break;
+          case 31: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.BEGIN    ;
+            }
+          case 65: break;
+          case 32: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.WHILE    ;
+            }
+          case 66: break;
+          case 33: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.PRINT    ;
+            }
+          case 67: break;
+          case 34: 
+            { parser.yylval = new ParserVal((Object)yytext()); return Parser.RETURN   ;
+            }
+          case 68: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }
