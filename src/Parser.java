@@ -100,6 +100,26 @@ public class Parser
         return program();
     }
 
+    // **************************************************************************************
+    // From here down, implement all the functions for each non-terminal from the parse table
+    // Right now I'm not sure if those functions given are correct
+    // **************************************************************************************
+
+//    template:
+//    public List<String> program() throws Exception
+//    {
+//        switch(_token.type)
+//        {
+//            // program -> decl_list
+//            case INT:
+//            case ENDMARKER:
+//                decl_list();
+//                Match(ENDMARKER);
+//                return null;
+//        }
+//        throw new Exception();
+//    }
+
     public List<String> program() throws Exception
     {
         switch(_token.type)
@@ -139,17 +159,6 @@ public class Parser
         }
         throw new Exception();
     }
-    public String type_spec() throws Exception
-    {
-        switch(_token.type)
-        {
-            // type_spec	-> "int"
-            case INT:
-                Match(INT);
-                return null;
-        }
-        throw new Exception();
-    }
     public List<String> fun_decl() throws Exception
     {
         switch(_token.type)
@@ -172,7 +181,106 @@ public class Parser
     {
         throw new Exception("not implemented");
     }
+    public String type_spec() throws Exception
+    {
+        switch(_token.type)
+        {
+            // type_spec	-> "int"
+            case INT:
+                Match(INT);
+                return null;
+        }
+        throw new Exception();
+    }
+    public String type_spec_() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String prim_type() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String local_decls() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String local_decls_() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String local_decl() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String stmt_list() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String stmt_list_() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String stmt() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String expr_stmt() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String print_stmt() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String return_stmt() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String if_stmt() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String while_stmt() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
     public List<String> compound_stmt() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String args() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String arg_list() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String arg_list_() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String expr() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String expr_() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String term() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String term_() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String factor() throws Exception
+    {
+        throw new Exception("not implemented");
+    }
+    public String factor_() throws Exception
     {
         throw new Exception("not implemented");
     }
