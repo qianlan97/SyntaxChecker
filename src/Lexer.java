@@ -17,6 +17,7 @@
  * from the specification file <tt>Lexer.flex</tt>
  */
 class Lexer {
+  public static StringBuffer indented_script= new StringBuffer();
 
   /** This character denotes the end of file */
   public static final int YYEOF = -1;
@@ -75,6 +76,10 @@ class Lexer {
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
   }
+  public static void appendToScript(String token){
+    indented_script.append(token);
+    return;
+  };
 
   private static int zzUnpackAction(String packed, int offset, int [] result) {
     int i = 0;       /* index in packed string  */
