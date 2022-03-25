@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class Parser
 {
+    public static int indentation_order   = 0;
+    public static final String indentation_atomic = "    ";
+    public static String indentation = indentation_atomic.repeat(indentation_order);
+
     public static final int ENDMARKER   =  0;
     public static final int LEXERROR    =  1;
 
@@ -65,6 +69,16 @@ public class Parser
         if(token_type ==  0)      _token = new Token(ENDMARKER , null  );
         else if(token_type == -1) _token = new Token(LEXERROR  , yylval);
         else                      _token = new Token(token_type, yylval);
+    }
+    public void updateIndentation(int step)
+    {
+        indentation_order = indentation_order + step;
+        indentation = indentation_atomic.repeat(indentation_order);
+    }
+    public void resetIndentation()
+    {
+        indentation_order = 0;
+        indentation = indentation_atomic.repeat(indentation_order);
     }
 
     public String Match(int token_type) throws Exception
@@ -249,6 +263,7 @@ public class Parser
         {
             // fun_decl -> FUNC IDENT TYPEOF LPAREN params RPAREN FUNCRET prim_type BEGIN local_decls stmt_list END
             case FUNC:
+                resetIndentation();
                 _lexer.appendToScript(_lexer.yytext() + " ");
                 Match(FUNC);
                 _lexer.appendToScript(_lexer.yytext());
@@ -266,6 +281,7 @@ public class Parser
                 prim_type();
                 _lexer.appendToScript("\n"+ _lexer.yytext() +"\n");
                 Match(BEGIN);
+                updateIndentation(1);
                 local_decls();
                 stmt_list();
                 _lexer.appendToScript(_lexer.yytext()+ "\n\n");
@@ -280,7 +296,7 @@ public class Parser
         {
             // params -> param_list
             case IDENT:
-                param_list()    ;
+                param_list();
                 return null;
             // params -> ϵ
             case RPAREN:
@@ -308,7 +324,6 @@ public class Parser
             case COMMA:
                 _lexer.appendToScript(_lexer.yytext() + " ");
                 Match(COMMA);
-                _lexer.appendToScript(_lexer.yytext() + " ");
                 param();
                 param_list_();
                 return null;
@@ -353,7 +368,9 @@ public class Parser
         {
             // type_spec' -> LBRACKET RBRACKET
             case LBRACKET:
+                _lexer.appendToScript(_lexer.yytext());
                 Match(LBRACKET);
+                _lexer.appendToScript(_lexer.yytext());
                 Match(RBRACKET);
                 return null;
             // type_spec' -> ϵ
@@ -403,7 +420,6 @@ public class Parser
         {
             // local_decls' -> local_decl local_decls'
             case VAR:
-                _lexer.appendToScript("    ");
                 local_decl();
                 local_decls_();
                 return null;
@@ -426,7 +442,7 @@ public class Parser
         {
             // local_decl -> VAR IDENT TYPEOF type_spec SEMI
             case VAR:
-                _lexer.appendToScript(_lexer.yytext()+" ");
+                _lexer.appendToScript(indentation + _lexer.yytext()+" ");
                 Match(VAR);
                 _lexer.appendToScript(_lexer.yytext());
                 Match(IDENT);
@@ -469,7 +485,6 @@ public class Parser
             case WHILE:
             case PRINT:
             case IDENT:
-                _lexer.appendToScript("    ");
                 stmt();
                 stmt_list_();
                 return null;
@@ -517,11 +532,12 @@ public class Parser
         {
             // expr_stmt -> IDENT ASSIGN expr SEMI
             case IDENT:
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                _lexer.appendToScript(indentation+ _lexer.yytext() + " ");
                 Match(IDENT);
                 _lexer.appendToScript(_lexer.yytext() + " ");
                 Match(ASSIGN);
                 expr();
+                _lexer.removeLastFromScript();
                 _lexer.appendToScript(_lexer.yytext() + "\n");
                 Match(SEMI);
                 return null;
@@ -534,10 +550,11 @@ public class Parser
         {
             // print_stmt -> PRINT expr SEMI
             case PRINT:
-                _lexer.appendToScript("\n    " + _lexer.yytext() + " ");
+                _lexer.appendToScript(indentation+ _lexer.yytext() + " ");
                 Match(PRINT);
                 expr();
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                _lexer.removeLastFromScript();
+                _lexer.appendToScript(_lexer.yytext() + "\n");
                 Match(SEMI);
                 return null;
         }
@@ -564,16 +581,20 @@ public class Parser
         {
             // if_stmt -> IF expr THEN stmt_list ELSE stmt_list END
             case IF:
-                _lexer.appendToScript("\n    "+_lexer.yytext() + " ");
+                _lexer.appendToScript( indentation + _lexer.yytext() + " ");
                 Match(IF);
                 expr();
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                _lexer.appendToScript(_lexer.yytext() + "\n");
                 Match(THEN);
+                updateIndentation(1);
                 stmt_list();
-                _lexer.appendToScript("\n    "+_lexer.yytext() + " ");
+                updateIndentation(-1);
+                _lexer.appendToScript(indentation+_lexer.yytext() + "\n");
                 Match(ELSE);
+                updateIndentation(1);
                 stmt_list();
-                _lexer.appendToScript("\n    "+_lexer.yytext() + " ");
+                updateIndentation(-1);
+                _lexer.appendToScript(indentation+_lexer.yytext() + "\n");
                 Match(END);
                 return null;
         }
@@ -585,15 +606,15 @@ public class Parser
         {
             // while_stmt -> WHILE expr BEGIN stmt_list END
             case WHILE:
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                _lexer.appendToScript(indentation +  _lexer.yytext() + " ");
                 Match(WHILE);
                 expr();
-                _lexer.appendToScript("\n    C");
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                _lexer.appendToScript( "\n"+ indentation +  _lexer.yytext() + "\n");
                 Match(BEGIN);
+                updateIndentation(1);
                 stmt_list();
-                _lexer.appendToScript("\n    C");
-                _lexer.appendToScript(_lexer.yytext() + " \n");
+                updateIndentation(-1);
+                _lexer.appendToScript(indentation + _lexer.yytext() + " \n");
                 Match(END);
                 return null;
         }
@@ -605,11 +626,13 @@ public class Parser
         {
             // compound_stmt -> BEGIN local_decls stmt_list END
             case BEGIN:
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                _lexer.appendToScript(indentation + _lexer.yytext() + "\n");
                 Match(BEGIN);
+                updateIndentation(1);
                 local_decls();
                 stmt_list();
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                updateIndentation(-1);
+                _lexer.appendToScript(indentation + _lexer.yytext() + "\n");
                 Match(END);
                 return null;
         }
@@ -643,7 +666,9 @@ public class Parser
             case BOOL_LIT:
             case INT_LIT:
             case IDENT:
+
                 expr();
+                _lexer.removeLastFromScript();
                 arg_list_();
                 return null;
         }
@@ -658,6 +683,7 @@ public class Parser
                 _lexer.appendToScript(_lexer.yytext() + " ");
                 Match(COMMA);
                 expr();
+                _lexer.removeLastFromScript();
                 arg_list_();
                 return null;
             // arg_list' -> ϵ
@@ -700,11 +726,12 @@ public class Parser
                 term();
                 expr_();
                 return null;
+
             // expr' -> ϵ
-            case BEGIN:
-            case THEN:
             case RPAREN:
             case RBRACKET:
+            case BEGIN:
+            case THEN:
             case SEMI:
             case COMMA:
                 return null;
@@ -722,6 +749,7 @@ public class Parser
             case INT_LIT:
             case IDENT:
                 factor();
+                _lexer.appendToScript(" ");
                 term_();
                 return null;
         }
@@ -736,6 +764,7 @@ public class Parser
                 _lexer.appendToScript(_lexer.yytext() + " ");
                 Match(TERMOP);
                 factor();
+                _lexer.appendToScript(" ");
                 term_();
                 return null;
             // term' -> ϵ
@@ -757,27 +786,29 @@ public class Parser
         {
             // factor -> LPAREN expr RPAREN
             case LPAREN:
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                _lexer.appendToScript(_lexer.yytext());
                 Match(LPAREN);
                 expr();
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                _lexer.removeLastFromScript();
+                _lexer.appendToScript(_lexer.yytext());
                 Match(RPAREN);
                 return null;
             // factor -> NEW prim_type LBRACKET expr RBRACKET
             case NEW:
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                _lexer.appendToScript(_lexer.yytext() +" ");
                 Match(NEW);
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                _lexer.appendToScript(_lexer.yytext());
                 prim_type();
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                _lexer.appendToScript(_lexer.yytext());
                 Match(LBRACKET);
                 expr();
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                _lexer.removeLastFromScript();
+                _lexer.appendToScript(_lexer.yytext());
                 Match(RBRACKET);
                 return null;
             // factor -> BOOL_LIT
             case BOOL_LIT:
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                _lexer.appendToScript(_lexer.yytext());
                 Match(BOOL_LIT);
                 return null;
             // factor -> INT_LIT
@@ -787,7 +818,7 @@ public class Parser
                 return null;
             // factor -> IDENT factor'
             case IDENT:
-                _lexer.appendToScript(_lexer.yytext() );
+                _lexer.appendToScript(_lexer.yytext());
                 Match(IDENT);
                 factor_();
                 return null;
@@ -800,25 +831,26 @@ public class Parser
         {
             // factor' -> LPAREN args RPAREN
             case LPAREN:
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                _lexer.appendToScript(_lexer.yytext());
                 Match(LPAREN);
                 args();
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                _lexer.appendToScript(_lexer.yytext());
                 Match(RPAREN);
                 return null;
             // factor' -> LBRACKET expr RBRACKET
             case LBRACKET:
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                _lexer.appendToScript(_lexer.yytext());
                 Match(LBRACKET);
                 expr();
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                _lexer.removeLastFromScript();
+                _lexer.appendToScript(_lexer.yytext());
                 Match(RBRACKET);
                 return null;
             // factor' -> DOT SIZE
             case DOT:
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                _lexer.appendToScript(_lexer.yytext());
                 Match(DOT);
-                _lexer.appendToScript(_lexer.yytext() + " ");
+                _lexer.appendToScript(_lexer.yytext());
                 Match(SIZE);
                 return null;
             // factor' -> ϵ

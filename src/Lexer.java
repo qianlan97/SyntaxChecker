@@ -17,7 +17,7 @@
  * from the specification file <tt>Lexer.flex</tt>
  */
 class Lexer {
-  public static StringBuffer indented_script= new StringBuffer();
+  public static StringBuilder indented_script= new StringBuilder();
 
   /** This character denotes the end of file */
   public static final int YYEOF = -1;
@@ -78,6 +78,10 @@ class Lexer {
   }
   public static void appendToScript(String token){
     indented_script.append(token);
+    return;
+  };
+  public static void removeLastFromScript(){
+    indented_script.deleteCharAt(indented_script.length()-1);
     return;
   };
 
